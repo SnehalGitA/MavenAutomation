@@ -1,19 +1,29 @@
 package com.testMethods;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class ValidateUI {
 	
-	ChromeDriver driver ;
+	WebDriver driver ;
 	
+	@Parameters("browser")
 	@Test
-	public void Login() throws Exception {
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
+	public void Login(String browsername) throws Exception {
+		if(browsername.contains("Chrome")) {
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+		}else if(browsername.contains("Edge")) {
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
+		}
+		
 		
 		driver.get("https://opensource-demo.orangehrmlive.com/");
 		Thread.sleep(2000);
